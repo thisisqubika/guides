@@ -1,6 +1,6 @@
-# Moove-it Objective-C Style Guide
+# Objective-C Style Guide
 
-This style guide outlines the coding conventions of the iOS team ad Moove-it. We welcome your feedback in [issues](https://github.com/Moove-it/objective-c-style-guide/issues) and [pull requests](https://github.com/Moove-it/objective-c-style-guide/pulls).
+This style guide outlines the coding conventions of the iOS team at Moove-it.
 
 ## Introduction
 
@@ -93,7 +93,7 @@ If a method receives more than one parameter, put each parameter in a new line, 
 - (Car *)carWithModel:(NSString *)model
                 brand:(NSString *)brand
                  year:(NSNumber *)year;
-                 
+
 [self carWithModel:@"model"
              brand:@"brand"
               year:@(2000)];
@@ -229,7 +229,7 @@ Property definitions should be used in place of naked instance variables wheneve
 
 #### Variable Qualifiers
 
-When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifier (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) should be placed before the type, e.g., `__weak NSString * text`. 
+When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifier (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) should be placed before the type, e.g., `__weak NSString * text`.
 
 ## Naming
 
