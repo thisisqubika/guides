@@ -71,9 +71,3 @@ An example response to style comments:
 
 If you disagree with a guideline, open an issue on the guides repo rather than
 debating it within the code review. In the meantime, apply the guideline.
-
-Credits
--------
-
-A great deal of inspiration for this document comes from [thoughtbot's guides](https://github.com/thoughtbot/guides).
-This work is licensed under a [Creative Commons Attribution License](http://creativecommons.org/licenses/by/3.0/)
