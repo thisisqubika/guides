@@ -3,7 +3,7 @@ Guides
 
 Guides for getting things done, programming well, and programming in style.
 
-* [Code Review](https://github.com/thoughtbot/guides/tree/master/code-review#code-review)
+* [Code Review](/code-review#code-review)
 * [Style](/style)
   * [Objective-C](/style/objective-c#objective-c-style-guide)
   * [Swift](/style/objective-c#objective-c-style-guide)
@@ -16,6 +16,9 @@ High level guidelines:
 * Don't rewrite existing code to follow this guide.
 * Don't violate a guideline without a good reason.
 * A reason is good when you can convince a teammate.
+
+If you disagree with a guideline, open an issue on the guides repo rather than debating it within the
+code review. In the meantime, apply the guideline.
 
 Contributing
 ------------
