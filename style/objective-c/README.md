@@ -1,6 +1,6 @@
 # Objective-C Style Guide
 
-This style guide outlines the coding conventions of the iOS team at Moove-it.
+This style guide outlines coding conventions for iOS Development using Objective-C 2.0 language.
 
 ## Introduction
 
@@ -20,12 +20,12 @@ If something isn't mentioned in this guide, nor in the Apple documentation, use 
 * [Spacing](#spacing)
 * [Parameters Indentation](#parameters-indentation)
 * [Conditionals](#conditionals)
-  * [Ternary Operator](#ternary-operator)
+* [Ternary Operator](#ternary-operator)
 * [Error handling](#error-handling)
 * [Methods](#methods)
 * [Variables](#variables)
 * [Naming](#naming)
-  * [Categories](#categories)
+* [Categories](#categories)
 * [Comments](#comments)
 * [Init & Dealloc](#init-and-dealloc)
 * [Literals](#literals)
@@ -39,6 +39,7 @@ If something isn't mentioned in this guide, nor in the Apple documentation, use 
 * [Singletons](#singletons)
 * [Imports](#imports)
 * [Xcode Project](#xcode-project)
+* [Other Guides](#other-guides)
 
 ## Dot Notation Syntax
 
@@ -211,7 +212,7 @@ Property definitions should be used in place of naked instance variables wheneve
 **For example:**
 
 ```objc
-@interface MOSection: NSObject
+@interface PFSection: NSObject
 
 @property (nonatomic) NSString * headline;
 
@@ -221,7 +222,7 @@ Property definitions should be used in place of naked instance variables wheneve
 **Not:**
 
 ```objc
-@interface MOSection : NSObject
+@interface PFSection : NSObject
 {
     NSString * headline;
 }
@@ -249,7 +250,7 @@ UIButton * settingsButton;
 UIButton * setBut;
 ```
 
-A two letter prefix (e.g., `MO`) should always be used for class names. Prefix can be set when the project is created, and will be added automatically to all new classes. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12).
+A two letter prefix (e.g., `PF`) should always be used for class names. Prefix can be set when the project is created, and will be added automatically to all new classes. A two letter prefix (e.g., `NS`) is [reserved for use by Apple](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html#//apple_ref/doc/uid/TP40011210-CH3-SW12).
 
 Properties and local variables should be camel-case with the leading word being lowercase.
 
@@ -274,17 +275,17 @@ Categories may be used to concisely segment functionality and should be named to
 **For example:**
 
 ```objc
-@interface UIViewController (MOMediaPlaying)
+@interface UIViewController (PFMediaPlaying)
 @interface NSString (NSStringEncodingDetection)
 ```
 
 **Not:**
 
 ```objc
-@interface MOAdvertisement (private)
+@interface PFAdvertisement (private)
 ```
 
-Categories must be implemented in separate files, named in the following way `<BaseClass>+<CategoryName>`, eg. `UIViewController+MOMediaPlaying.h/m`, **not** `UIViewControllerCategoryMOMediaPlaying.h/m`
+Categories must be implemented in separate files, named in the following way `<BaseClass>+<CategoryName>`, eg. `UIViewController+PFMediaPlaying.h/m`, **not** `UIViewControllerCategoryPFMediaPlaying.h/m`
 
 ## Comments
 
@@ -370,16 +371,16 @@ Constants should always start with leter `k`, must be declared and initialized i
 **For example:**
 
 ```objc
-static NSString * const kMOLoginViewControllerSegueIdentifier = @"kMOLoginViewControllerSegueIdentifier";
+static NSString * const kPFLoginViewControllerSegueIdentifier = @"kPFLoginViewControllerSegueIdentifier";
 static CGFloat const kImageThumbnailHeight = 50.0;
 ```
 
 **Not any of the following:**
 
 ```objc
-static const NSString * const kMOLoginViewControllerSegueIdentifier = @"kMOLoginViewControllerSegueIdentifier";
-static NSString * const MOLoginViewControllerSegueIdentifier = @"kMOLoginViewControllerSegueIdentifier";
-#define CompanyName @"Moove-it"
+static const NSString * const kPFLoginViewControllerSegueIdentifier = @"kPFLoginViewControllerSegueIdentifier";
+static NSString * const PFLoginViewControllerSegueIdentifier = @"kPFLoginViewControllerSegueIdentifier";
+#define CompanyName @"Company"
 #define thumbnailHeight 2
 ```
 
@@ -390,23 +391,23 @@ When using `enum`s, use the new fixed underlying type specification, which provi
 **For example:**
 
 ```objc
-typedef NS_ENUM(NSInteger, MOAdRequestState) {
-    MOAdRequestStateInactive,
-    MOAdRequestStateLoading
+typedef NS_ENUM(NSInteger, PFAdRequestState) {
+    PFAdRequestStateInactive,
+    PFAdRequestStateLoading
 };
 ```
 
 **Not:**
 
 ```objc
-typedef NS_ENUM(NSInteger, MOAdRequestState) {
+typedef NS_ENUM(NSInteger, PFAdRequestState) {
     Inactive,
     Loading
 };
 
-typedef NS_ENUM(NSInteger, MOAdRequestState) {
-    MOAdRequestState_Inactive,
-    MOAdRequestState_Loading
+typedef NS_ENUM(NSInteger, PFAdRequestState) {
+    PFAdRequestState_Inactive,
+    PFAdRequestState_Loading
 };
 ```
 
@@ -417,11 +418,11 @@ When working with bitmasks, use the `NS_OPTIONS` macro. Same guidelines of [enum
 **Example:**
 
 ```objc
-typedef NS_OPTIONS(NSUInteger, MOAdCategory) {
-  MOAdCategoryAutos      = 1 << 0,
-  MOAdCategoryJobs       = 1 << 1,
-  MOAdCategoryRealState  = 1 << 2,
-  MOAdCategoryTechnology = 1 << 3
+typedef NS_OPTIONS(NSUInteger, PFAdCategory) {
+    PFAdCategoryCars       = 1 << 0,
+    PFAdCategoryJobs       = 1 << 1,
+    PFAdCategoryRealState  = 1 << 2,
+    PFAdCategoryTechnology = 1 << 3
 };
 ```
 
@@ -432,7 +433,7 @@ Private properties should be declared in class extensions (anonymous categories)
 **For example:**
 
 ```objc
-@interface MOAdvertisement ()
+@interface PFAdvertisement ()
 
 @property (nonatomic, strong) GADBannerView * googleAdView;
 @property (nonatomic, strong) ADBannerView * iAdView;
@@ -461,12 +462,12 @@ Never compare something directly to `YES`, because `YES` is defined as `1`, and 
 ```objc
 if (!someObject)
 {
-  //Do something
+    //Do something
 }
 
 if (someObject == nil)
 {
-  //Do something
+    //Do something
 }
 ```
 
@@ -500,14 +501,14 @@ Singleton objects should use a thread-safe pattern for creating their shared ins
 ```objc
 + (instancetype)sharedInstance
 {
-   static id sharedInstance = nil;
+    static id sharedInstance = nil;
 
-   static dispatch_once_t onceToken;
-   dispatch_once(&onceToken, ^{
-      sharedInstance = [[[self class] alloc] init];
-   });
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[[self class] alloc] init];
+    });
 
-   return sharedInstance;
+    return sharedInstance;
 }
 ```
 This will prevent [possible and sometimes frequent crashes](http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html).
@@ -523,11 +524,11 @@ Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#usin
 @import QuartzCore;
 
 // Models
-#import "MOUser.h"
+#import "PFUser.h"
 
 // Views
-#import "MOButton.h"
-#import "MOUserView.h"
+#import "PFButton.h"
+#import "PFUserView.h"
 ```
 
 ## Xcode project
@@ -535,3 +536,18 @@ Note: For modules use the [@import](http://clang.llvm.org/docs/Modules.html#usin
 The physical files should be kept in sync with the Xcode project files in order to avoid file sprawl. Any Xcode groups created should be reflected by folders in the filesystem. Code should be grouped not only by type, but also by feature for greater clarity. We recomend using [Synx](https://github.com/venmo/synx) for this.
 
 When possible, always turn on “Treat Warnings as Errors” in the target’s Build Settings and enable as many [additional warnings](http://boredzo.org/blog/archives/2009-11-07/warnings) as possible. If you need to ignore a specific warning, use [Clang’s pragma feature](http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas).
+
+
+## Other Guides
+
+Here're some other guides that we based from to write this guide:
+
+* [New York Times](https://github.com/NYTimes/objective-c-style-guide)
+* [Google](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml)
+* [GitHub](https://github.com/github/objective-c-conventions)
+* [Adium](https://trac.adium.im/wiki/CodingStyle)
+* [Sam Soffes](https://gist.github.com/soffes/812796)
+* [CocoaDevCentral](http://cocoadevcentral.com/articles/000082.php)
+* [Luke Redpath](http://lukeredpath.co.uk/blog/2011/06/28/my-objective-c-style-guide/)
+* [Marcus Zarra](http://www.cimgf.com/zds-code-style-guide/)
+* [Wikimedia](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide)
