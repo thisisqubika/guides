@@ -6,6 +6,7 @@ Guides for getting things done, programming well, and programming in style.
 * [Code Review](/code-review#code-review)
 * [Style](/style)
   * [Commit Message](/style/commit-message#commit-message-style-guide)
+  * [Android](/style/android#android-style-guide)
   * [Objective-C](/style/objective-c#objective-c-style-guide)
   * [Swift](/style/swift#swift-style-guide)
   * [Ruby](https://github.com/bbatsov/ruby-style-guide#prelude)
