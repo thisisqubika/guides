@@ -3,10 +3,11 @@
 Conventions for commit messages:
 
 1. The first line should summarize what the commit does.
-2. The first line of the commit message should not be larger than 50 
+2. The first line of the commit message shouldn't have a period at the end.
+3. The first line of the commit message should not be larger than 50 
 characters.
-3. Use present tense in imperative, present tense for the first line.
-4. If one line is not enough to describe what the commit does, then:
+4. Use present tense in imperative, present tense for the first line.
+5. If one line is not enough to describe what the commit does, then:
   1. The first line must be followed by a blank new line.
   2. A brief description explaining the change, between 2-4 lines 
 long, should follow the new line.
