@@ -11,6 +11,7 @@ Guides for getting things done, programming well, and programming in style.
   * [Swift](/style/swift#swift-style-guide)
   * [Ruby](https://github.com/bbatsov/ruby-style-guide#prelude)
   * [Rails](https://github.com/bbatsov/rails-style-guide#prelude)
+  * [RSpec](http://betterspecs.org/)
   * [Java](/style/java#java-style)
 
 High level guidelines:
