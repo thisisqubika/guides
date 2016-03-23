@@ -9,6 +9,7 @@ Guides for getting things done, programming well, and programming in style.
   * [Android](/style/android#android-style-guide)
   * [Objective-C](/style/objective-c#objective-c-style-guide)
   * [Swift](/style/swift#swift-style-guide)
+  * [JavaScript](/style/javascript#javascript-style-guide)
   * [Ruby](https://github.com/bbatsov/ruby-style-guide#prelude)
   * [Rails](https://github.com/bbatsov/rails-style-guide#prelude)
   * [Java](/style/java#java-style)
