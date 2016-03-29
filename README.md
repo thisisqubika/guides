@@ -1,7 +1,7 @@
 Guides
 ======
 
-Guides for getting things done, programming well, and programming in style.
+This is a collection of guidelines describing how to write code the Moove-it way.
 
 * [Code Review](/code-review#code-review)
 * [Style](/style)
@@ -15,12 +15,9 @@ Guides for getting things done, programming well, and programming in style.
   * [RSpec](http://betterspecs.org/)
   * [Java](/style/java#java-style)
 
-High level guidelines:
+Important considerations:
 
-* Be consistent.
-* Don't rewrite existing code to follow this guide.
-* Don't violate a guideline without a good reason.
-* A reason is good when you can convince a teammate.
+* Follow the guideline.
 
 If you disagree with a guideline, open an issue on the guides repo rather than debating it within the
 code review. In the meantime, apply the guideline.
