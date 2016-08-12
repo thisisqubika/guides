@@ -1,4 +1,4 @@
-# JavaScript Style Guide
+# JavaScript Style Guide (EcmaScript 5)
 
 ## Table of Contents
 
