@@ -28,6 +28,12 @@ In order to better fit the team needs and the differences between our guides and
 * **[JSX filename extension](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md)**: We are not keen on forcing developer to use .jsx files since it provides no real benefit.
 * **[Import order](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md)**: This rule is not actually disencouraged, but actually configured to better adapt to what the team prefers. The default order for the imports is `"builtin", "external", "parent", "sibling", "index"`. We do prefer having the following order: `"builtin", "external", "parent", "sibling", "index"`
 
+### React Native Specific design decisiones
+
+#### Platform specific code
+
+Always prefer having a `.android.js` and a `.ios.js` file instead of having platform checks `if Platform.OS === 'ios' ...`. The resulting code will be clearer and more extensible, since adding new changes for each platform will be easier. 
+
 ### Tools
 
 We highly recommend using the ESlint integrations with the IDE or code editor that the developer is using. The following are the most popular ones:
