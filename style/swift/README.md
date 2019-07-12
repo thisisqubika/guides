@@ -16,12 +16,12 @@ If you have suggestions, please see our [contribution guidelines](/#contributing
 
 ## Overall design decisions
 
-Here, we'll specificy several design decisions that are not necess decided by a linter or a code style, but good practices to follow in the project.
+Here, we'll specificy several design decisions that are not necessarily decided by a linter or a code style, but good practices to follow in the project.
 
 #### Whitespace
 
  * Four spaces, not tabs.
- * End files with a newline.
+ * End files with a newline.s
  * Make liberal use of vertical whitespace to divide code into logical chunks.
  * Don’t leave trailing whitespace.
    * Not even leading indentation on blank lines.
@@ -101,7 +101,7 @@ if a {
 }
 ```
 
-_Rationale:_ Guards avoid nesting conditions, which makes the code clearer. This swift feature lets us define conditions that must be meet so the main code of the function is executed.
+_Rationale:_ Guards avoid nesting conditions, which makes the code clearer. This swift feature lets us define conditions that must be met so the main code of the function is executed.
 
 #### Avoid Using Implicitly Unwrapped Optionals
 
@@ -300,7 +300,7 @@ _Rationale:_ Swift closures provide good encapsulation of the context, providing
 
 #### Constants
 
-Constants should be defined in his own classes, use `struct` to define them. Where to store this constants can be in different places. Always prefer them to be as near as possible to where they are used.
+Constants should be defined in his own classes, use `struct` to define them. Where to store these constants can be in different places. Always prefer them to be as near as possible to where they are used.
 
 For example, API urls:
 
@@ -371,7 +371,7 @@ class DoubleHelper  {
 }
 ```
 
-_Rationale:_ Extensions are a tool provided by the language that allows to make code clearer, adding functionality instead of having to relay to other abstractions that may not be clear at first glance. Using extension makes it look as another method from the object.
+_Rationale:_ Extensions are a tool provided by the language that allows us to make code clearer, adding functionality instead of having to rely to other abstractions that may not be clear at first glance. Using extension makes it look as another method from the object.
 
 #### Omit type parameters where possible
 
@@ -472,7 +472,7 @@ We extensively use [Swiftlint](https://github.com/realm/SwiftLint) as our linter
 
 The rules defined by SwiftLint can be found [here](https://github.com/realm/SwiftLint/blob/master/Rules.md). Please feel free to check them out. We also have the list of rules defined here. 
 
-There are several rules that are changed/added because we found them convinient due to our experience. This are the following:
+There are several rules that are changed/added because we found them convinient due to our experience. These are the following:
 
 ```yml
   - empty_count
