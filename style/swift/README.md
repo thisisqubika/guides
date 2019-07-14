@@ -21,7 +21,7 @@ Here, we'll specificy several design decisions that are not necessarily decided 
 #### Whitespace
 
  * Four spaces, not tabs.
- * End files with a newline.s
+ * End files with a newline.
  * Make liberal use of vertical whitespace to divide code into logical chunks.
  * Don’t leave trailing whitespace.
    * Not even leading indentation on blank lines.
@@ -371,7 +371,7 @@ class DoubleHelper  {
 }
 ```
 
-_Rationale:_ Extensions are a tool provided by the language that allows us to make code clearer, adding functionality instead of having to rely to other abstractions that may not be clear at first glance. Using extension makes it look as another method from the object.
+_Rationale:_ Extensions are a tool provided by the language that allows us to make code clearer, adding functionality instead of having to rely on other abstractions that may not be clear at first glance. Using extension makes it look as another method from the object.
 
 #### Omit type parameters where possible
 
