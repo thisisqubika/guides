@@ -14,6 +14,10 @@ If you have suggestions, please see our [contribution guidelines](/#contributing
 
 ----
 
+## Overall design decisions
+
+Here, we'll specificy several design decisions that are not necessarily decided by a linter or a code style, but good practices to follow in the project.
+
 #### Whitespace
 
  * Four spaces, not tabs.
@@ -22,19 +26,9 @@ If you have suggestions, please see our [contribution guidelines](/#contributing
  * Don’t leave trailing whitespace.
    * Not even leading indentation on blank lines.
 
-#### Typical application groups
-
-Every normal application that handle API calls should have at least the following groups, this is to have an agreement, on the project structure.
-
-  * Extensions - _This folder contains extensions made to core component classes_
-  * Backend - _This is where our backend logic should go API mangers, etc._
-  * Entities - _This is a place to have the models that our application will handle_
-  * Storyboards - _Here we will have the storyboards used by the application_
-  * Supporting Files - _Constants and other files that will be used to manage configurations or static values will be here_
-
 #### Make a folder associated with each group
 
-Whenever we create a new group we should create an associated folder for that group, all files that are in the same group must be on the same folder on the file system.
+Whenever we create a new group we should create an associated folder for that group, all files that are in the same group must be on the same folder on the file system. This is enabled by default by the newest versions of Xcode.
 
 *Note:* Supporting Files group will have a folder called SupportingFiles
 
@@ -72,6 +66,42 @@ foo?.callSomethingIfFooIsNotNil()
 ```
 
 _Rationale:_ Explicit `if let`-binding of optionals results in safer code. Force unwrapping is more prone to lead to runtime crashes.
+
+#### Always prefer guard over if
+
+Always prefer to use `guard`s instead of nested `if let` with an else clause.
+
+Prefer:
+
+```swift
+guard a else {
+    // else a code
+    return
+}
+
+guard b else {
+    // else b code
+    return
+}
+
+// main code
+```
+
+to:
+
+```swift
+if a {
+    if b {
+        //  main code
+    } else {
+        // else b code
+    }
+} else {
+    // else a code
+}
+```
+
+_Rationale:_ Guards avoid nesting conditions, which makes the code clearer. This swift feature lets us define conditions that must be met so the main code of the function is executed.
 
 #### Avoid Using Implicitly Unwrapped Optionals
 
@@ -193,7 +223,7 @@ _Rationale:_ This makes the capturing semantics of `self` stand out more in clos
 
 Unless you require functionality that can only be provided by a class (like identity or deinitializers), implement a struct instead.
 
-Note that inheritance is (by itself) usually _not_ a good reason to use classes, because polymorphism can be provided by protocols, and implementation reuse can be provided through composition.
+Note that inheritance is (by itself) usually _not_ a good reason to use classes, because polymorphism can be provided by protocols, and implementation reuse can be provided through composition. Structs are lightweight and can avoid several bugs due to shared access to mutations.
 
 For example, this class hierarchy:
 
@@ -245,9 +275,32 @@ struct Car: Vehicle {
 
 _Rationale:_ Value types are simpler, easier to reason about, and behave as expected with the `let` keyword.
 
+
+#### Prefer closure-based methods (functional) over traditional iterations
+
+Swift provide several functional-like methods that work based on closures. This methods are `.map`, `.foreach`, `.reduce` and several others. Always prefer using them rather than using traditional style iterations `for .. in ..`.
+
+Prefer using:
+
+```swift
+myArray.forEach { element in
+    // code
+}
+```
+
+rather than:
+
+```swift
+for element in myArray {
+    // code
+}
+```
+
+_Rationale:_ Swift closures provide good encapsulation of the context, providing better (and clearer) access to `self`. Also, several of this methods provide inmutability and result in shorter code than their traditional alternatives. 
+
 #### Constants
 
-Constants should be defined in his own classes, use `struct` to define them. The constant file should be on the _"Supporting Files"_ group.
+Constants should be defined in his own classes, use `struct` to define them. Where to store these constants can be in different places. Always prefer them to be as near as possible to where they are used.
 
 For example, API urls:
 
@@ -277,9 +330,9 @@ struct API {
 }
 ```
 
-_Rationale:_ Have constants on a centralized place allow the developers to find them easily.
+_Rationale:_ Having constants allows us to be able to modify their values quickly.
 
-#### Singltons
+#### Singletons
 
 The preferred way of doing a Singleton in swift is the following:
 
@@ -296,12 +349,29 @@ final class Singleton: NSObject {
 
 _Note:_ The Singleton class is final so nobody can extend from that class and create another instance, and the name of the uniq instance is *sharedInstance*.
 
-#### Make classes `final` by default
+#### Prefer extensions to general `Helper` classes
 
-Classes should start as `final`, and only be changed to allow subclassing if a valid need for inheritance has been identified. Even in that case, as many definitions as possible _within_ the class should be `final` as well, following the same rules.
+```Swift
+extension Double {
+  func round(nearest: Double) -> Double {
+    let nearestNumber = 1 / nearest
+    let numberToRound = self * nearestNumber
+    return numberToRound.rounded() / nearestNumber
+  }
+}
+```
 
-_Rationale:_ Composition is usually preferable to inheritance, and opting _in_ to inheritance hopefully means that more thought will be put into the decision.
+```Swift
+class DoubleHelper  {
+  static func round(oldNumber: Double, nearest: Double) -> Double {
+    let nearestNumber = 1 / nearest
+    let numberToRound = oldNumber * nearestNumber
+    return numberToRound.rounded() / nearestNumber
+  }
+}
+```
 
+_Rationale:_ Extensions are a tool provided by the language that allows us to make code clearer, adding functionality instead of having to rely on other abstractions that may not be clear at first glance. Using extension makes it look as another method from the object.
 
 #### Omit type parameters where possible
 
@@ -329,20 +399,99 @@ struct Composite<T> {
 
 _Rationale:_ Omitting redundant type parameters clarifies the intent, and makes it obvious by contrast when the returned type takes different type parameters.
 
-#### Use whitespace around operator definitions
+#### Always prefer Type Inference
 
-Use whitespace around operators when defining them. Instead of:
+Let the compiler infer the type for constants or variables of single instances. Type inference is also appropriate for small, non-empty arrays and dictionaries. Only use them when necessary.
 
-```swift
-func <|(lhs: Int, rhs: Int) -> Int
-func <|<<A>(lhs: A, rhs: A) -> A
-```
-
-write:
+Prefer:
 
 ```swift
-func <| (lhs: Int, rhs: Int) -> Int
-func <|< <A>(lhs: A, rhs: A) -> A
+let message = "Click the button"
+let currentBounds = computeViewBounds()
+var names = ["Mic", "Sam", "Christine"]
+let maximumWidth: CGFloat = 106.5
 ```
 
-_Rationale:_ Operators consist of punctuation characters, which can make them difficult to read when immediately followed by the punctuation for a type or value parameter list. Adding whitespace separates the two more clearly.
+To this:
+
+```swift
+let message: String = "Click the button"
+let currentBounds: CGRect = computeViewBounds()
+var names = [String]()
+```
+
+_Rationale:_ Always compact code and let the compiler do work for you.
+
+#### Always lock the version dependencies
+
+No matter which package manager is being used, the dependency version should always be locked to a specific version
+
+Prefer `pod 'Alamofire', '~> 5.0.0` to `pod 'Alamofire'`
+
+_Rationale:_ There can be breaking changes between versions. If there's no version specified, whenever someone installs them there could be another version installed, different than the one intended.
+
+#### Code Organization
+
+Use extensions to organize your code into logical blocks of functionality. Each extension should be set off with a `// MARK: -` comment to keep things well-organized.
+
+#### Protocol Conformance
+
+In particular, when adding protocol conformance to a model, prefer adding a separate extension for the protocol methods.
+
+Prefer: 
+
+```swift
+class MyViewController: UIViewController {
+  // class stuff here
+}
+
+// MARK: - UITableViewDataSource
+extension MyViewController: UITableViewDataSource {
+  // table view data source methods
+}
+
+// MARK: - UIScrollViewDelegate
+extension MyViewController: UIScrollViewDelegate {
+  // scroll view delegate methods
+}
+```
+
+To:
+
+```swift
+class MyViewController: UIViewController, UITableViewDataSource, UIScrollViewDelegate {
+  // all methods
+}
+```
+
+_Rationale:_ This keeps the related methods grouped together with the protocol and can simplify instructions to add a protocol to a class with its associated methods.
+
+## Styleguide rules
+
+We extensively use [Swiftlint](https://github.com/realm/SwiftLint) as our linter tool. This allows us to automate the style-checking process, and provides an excellent integration with Xcode. 
+
+The rules defined by SwiftLint can be found [here](https://github.com/realm/SwiftLint/blob/master/Rules.md). Please feel free to check them out. We also have the list of rules defined here. 
+
+There are several rules that are changed/added because we found them convinient due to our experience. These are the following:
+
+```yml
+  - empty_count
+  - closure_spacing
+  - closure_end_indentation
+  - force_unwrapping
+  - multiline_arguments
+  - multiline_parameters
+  - operator_usage_whitespace
+  - sorted_imports
+```
+
+
+The complete setup can be found in the [.swiftlint.yml](https://github.com/moove-it/Swift-Project-Template/blob/master/.swiftlint.yml) file of the base project. 
+
+### SwiftLint setup
+
+* Always have SwiftLint installed as a dependency (Cocoapods, Carthage) to avoid depending on the enviroment
+
+### Rules
+
+The entire list of rules can be found [here](./RULES.md)
